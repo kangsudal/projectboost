@@ -5,13 +5,15 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] float mainThrust = 500f;
-    [SerializeField] float rotationThrust = 70f;
+    [SerializeField] float rotationThrust = 50f;
     Rigidbody rb;
+    AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         rb=GetComponent<Rigidbody>();
-    }
+        audioSource=GetComponent<AudioSource>();
+    }//Cache a references to Rigidbody and AudioSource
 
     // Update is called once per frame
     void Update()
@@ -21,11 +23,19 @@ public class Movement : MonoBehaviour
     }
 
     void ProcessThrust()
-    {
+    {//로켓추진시 추진관련된 모든것은 여기에 하라
         if(Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up*mainThrust*Time.deltaTime);
-            Debug.Log("Pressed SPACE - Thrusting");
+            rb.AddRelativeForce(Vector3.up*mainThrust*Time.deltaTime);//Add force            
+            if(!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            
+        }
+        else
+        {
+                audioSource.Stop();
         }
 
     }
