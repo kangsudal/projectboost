@@ -15,7 +15,7 @@ public class CollisionHandler : MonoBehaviour
                 AddFuel();
                 break;
             case "Finish":
-                FinishAction();
+                LoadNextLevel();
                 break;
             default:
                 ReloadLevel();
@@ -27,8 +27,14 @@ public class CollisionHandler : MonoBehaviour
         print("Add Fuel");
     }
 
-    private void FinishAction(){
+    private void LoadNextLevel(){
         print("Success Landing!");
+        int currentSceneIdx = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIdx = currentSceneIdx+1;
+        if(nextSceneIdx==SceneManager.sceneCountInBuildSettings){
+            nextSceneIdx=0;
+        }
+        SceneManager.LoadScene(nextSceneIdx);
     }
 
     private void ReloadLevel(){
