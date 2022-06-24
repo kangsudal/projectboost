@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class CollisionHandler : MonoBehaviour
                 FinishAction();
                 break;
             default:
-                print("Bum!");
+                ReloadLevel();
                 break;
         }
     }
@@ -28,5 +29,9 @@ public class CollisionHandler : MonoBehaviour
 
     private void FinishAction(){
         print("Success Landing!");
+    }
+
+    private void ReloadLevel(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
