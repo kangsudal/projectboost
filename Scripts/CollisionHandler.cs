@@ -10,17 +10,17 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip success;
     AudioSource audioSource;
 
+    bool isTrasitioning = false;
+
     void Start(){
         audioSource = GetComponent<AudioSource>();
     }
     private void OnCollisionEnter(Collision other) {
+        if(isTrasitioning){return;}
         switch(other.gameObject.tag)
         {
             case "Friendly":
                 Debug.Log("This is friendly");
-                break;
-            case "Fuel":
-                AddFuel();
                 break;
             case "Finish":
                 StartSuccessSequence();
@@ -32,14 +32,17 @@ public class CollisionHandler : MonoBehaviour
     }
 
     private void StartCrashSequence(){
+        isTrasitioning=true;
+        audioSource.Stop();
         audioSource.PlayOneShot(crash);
         //todo add particle effect upo crash
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel",levelLoadDelay);
-        audioSource.PlayOneShot(crash);
     }
 
     private void StartSuccessSequence(){
+        isTrasitioning=true;
+        audioSource.Stop();
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel",levelLoadDelay);
         audioSource.PlayOneShot(success);
