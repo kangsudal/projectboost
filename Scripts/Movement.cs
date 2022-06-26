@@ -12,8 +12,8 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb=GetComponent<Rigidbody>();
-        audioSource=GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }//Cache a references to Rigidbody and AudioSource
 
     // Update is called once per frame
@@ -25,29 +25,29 @@ public class Movement : MonoBehaviour
 
     void ProcessThrust()
     {//로켓추진시 추진관련된 모든것은 여기에 하라
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up*mainThrust*Time.deltaTime);//Add force            
-            if(!audioSource.isPlaying)
+            rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);//Add force            
+            if (!audioSource.isPlaying)
             {
                 audioSource.PlayOneShot(mainEngine);
             }
-            
+
         }
         else
         {
-                audioSource.Stop();
+            audioSource.Stop();
         }
 
     }
 
     void ProcessRotation()
     {
-        if(Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             ApplyRotation(rotationThrust);
         }
-        else if(Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             ApplyRotation(-rotationThrust);
         }
