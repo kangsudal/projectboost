@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,17 +12,38 @@ public class CollisionHandler : MonoBehaviour
 
     [SerializeField] ParticleSystem crashParticles;
     [SerializeField] ParticleSystem successParticles;
-    
+
     AudioSource audioSource;
 
     bool isTrasitioning = false;
+    bool collisionDisabled = false;
 
-    void Start(){
+    void Start()
+    {
         audioSource = GetComponent<AudioSource>();
     }
-    private void OnCollisionEnter(Collision other) {
-        if(isTrasitioning){return;}
-        switch(other.gameObject.tag)
+
+    void Update()
+    {
+        RespondToDebugKeys();
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKey(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKey(KeyCode.C))
+        {
+            collisionDisabled = !collisionDisabled; // toggle collision
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (isTrasitioning || collisionDisabled) { return; }
+        switch (other.gameObject.tag)
         {
             case "Friendly":
                 Debug.Log("This is friendly");
@@ -35,40 +57,47 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
-    private void StartCrashSequence(){
-        isTrasitioning=true;
+    private void StartCrashSequence()
+    {
+        isTrasitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(crash);
         crashParticles.Play();
         GetComponent<Movement>().enabled = false;
-        Invoke("ReloadLevel",levelLoadDelay);
+        Invoke("ReloadLevel", levelLoadDelay);
     }
 
-    private void StartSuccessSequence(){
-        isTrasitioning=true;
+    private void StartSuccessSequence()
+    {
+        isTrasitioning = true;
         audioSource.Stop();
         GetComponent<Movement>().enabled = false;
-        Invoke("LoadNextLevel",levelLoadDelay);
+        Invoke("LoadNextLevel", levelLoadDelay);
         audioSource.PlayOneShot(success);
         successParticles.Play();
     }
 
-    private void AddFuel(){
+    private void AddFuel()
+    {
         print("Add Fuel");
     }
 
-    private void LoadNextLevel(){
+    private void LoadNextLevel()
+    {
         print("Success Landing!");
         int currentSceneIdx = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIdx = currentSceneIdx+1;
-        if(nextSceneIdx==SceneManager.sceneCountInBuildSettings){
-            nextSceneIdx=0;
+        int nextSceneIdx = currentSceneIdx + 1;
+        if (nextSceneIdx == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIdx = 0;
         }
         SceneManager.LoadScene(nextSceneIdx);
     }
 
-    private void ReloadLevel(){
+    private void ReloadLevel()
+    {
         int currentSceneIdx = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIdx);
     }
+
 }
