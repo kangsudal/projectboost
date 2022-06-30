@@ -541,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.69, z: -22.52}
+  m_LocalPosition: {x: 0, y: 7.4, z: -22.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -604,6 +604,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62198a3a5dbb64a4f9e1618929224faa, type: 3}
+--- !u!1 &1375495370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2809142973707404859, guid: fbf0965b890a2ab4cad1201de1cc1d21, type: 3}
+  m_PrefabInstance: {fileID: 4293442969734886636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1375495371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375495370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa27a98383dbd342949d316eb14d9d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementVector: {x: 0, y: -2, z: 0}
+  period: 2
 --- !u!198 &1378322198 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 198100719057022332, guid: a3553fd250eb92d4091bebde350c6739, type: 3}
@@ -904,7 +923,7 @@ PrefabInstance:
     - target: {fileID: 315210531803027578, guid: fbf0965b890a2ab4cad1201de1cc1d21, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1536f2825f998534c971cbec71ac3ee7, type: 2}
+      objectReference: {fileID: 2100000, guid: 377cb1d18abbf3c4d817c0203a6d722a, type: 2}
     - target: {fileID: 2809142973707404859, guid: fbf0965b890a2ab4cad1201de1cc1d21, type: 3}
       propertyPath: m_Name
       value: Obstacle
